@@ -13,17 +13,11 @@ IPSG> load examples/Qlock/input.cafe .
 
 where the first command starts the tool, the second command loads the Qlock specification, and the last command loads the input file, which asks the tool to generate the proof scores to prove Qlock enjoys the mutual exclusion properties (i.e., the proof scores of `inv1` and `inv2`).
 
-load examples/TAS/tas.cafe .
-load examples/TAS/input.cafe .
-
-<!-- List all false cases by ID -->
-list false cases .
-
-<!-- Show proof score by ID -->
-show prsc by mutex.2.1.2.1.2.1 .
-
-load examples/Qlock/qlock.cafe .
-load examples/Qlock/input.cafe .
-list false cases .
-show prsc by inv2.4.1.2.1 .
-show prsc by mutex.2.1.1 .
+Extend (list false cases by IDs, show prsc by ID)
+```bash
+$ maude -allow-files ipsg.maude
+IPSG> load examples/TAS/tas.cafe .
+IPSG> load examples/TAS/input.cafe .
+IPSG> list false cases .
+IPSG> show prsc by mutex.2.1.2.1.2.1 .
+```
