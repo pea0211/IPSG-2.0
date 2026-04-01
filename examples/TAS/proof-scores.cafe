@@ -1,0 +1,157 @@
+--> ID = mutex.1 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op s : -> Sys .
+  red mutex(init,p,q) .
+close
+
+--> ID = mutex.2.1.1 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = true .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.1.1 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq p = r1 .
+  eq q = r1 .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.1.2.1 false
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq p = r1 .
+  eq (q = r1) = false .
+  eq pc(s,q) = cs .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.1.2.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq p = r1 .
+  eq (q = r1) = false .
+  eq (pc(s,q) = cs) = false .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.2.1.1 false
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq (p = r1) = false .
+  eq q = r1 .
+  eq pc(s,p) = cs .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.2.1.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq (p = r1) = false .
+  eq q = r1 .
+  eq (pc(s,p) = cs) = false .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.1.2.2.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = rs .
+  eq locked(s) = false .
+  eq (p = r1) = false .
+  eq (q = r1) = false .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.2.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq (pc(s,r1) = rs) = false .
+  red mutex(s,p,q) implies mutex(enter(s,r1),p,q) .
+close
+
+--> ID = mutex.3.1.1 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = cs .
+  eq p = r1 .
+  red mutex(s,p,q) implies mutex(exit(s,r1),p,q) .
+close
+
+--> ID = mutex.3.1.2.1 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = cs .
+  eq (p = r1) = false .
+  eq q = r1 .
+  red mutex(s,p,q) implies mutex(exit(s,r1),p,q) .
+close
+
+--> ID = mutex.3.1.2.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq pc(s,r1) = cs .
+  eq (p = r1) = false .
+  eq (q = r1) = false .
+  red mutex(s,p,q) implies mutex(exit(s,r1),p,q) .
+close
+
+--> ID = mutex.3.2 true
+open TAS .
+  op p : -> Pid .
+  op q : -> Pid .
+  op r1 : -> Pid .
+  op s : -> Sys .
+  eq (pc(s,r1) = cs) = false .
+  red mutex(s,p,q) implies mutex(exit(s,r1),p,q) .
+close
+
+--> Time taken is 15ms
